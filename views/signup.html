@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up Form - Example</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .center-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .inner-div{
+      margin-top: 10px;
+      height: 50%;
+
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+<div class="container mt-2 bg-light">
+<div class="row">
+  <div class="col-sm">
+
+  </div>
+ <div class="col-sm border border-primary">
+  <form>
+    <h2>Sign Up</h2>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" name="name" autocomplete="name" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" name="email" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" id="password" name="password" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="btn btn-primary" id="submit">Sign Up</button>
+    <p id="message"></p>
+  </form>
+</div>
+<div class="col-sm">
+
+</div>
+</div>
+
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+
+document.getElementById("submit").addEventListener('click',UserSignUp);
+
+async function UserSignUp(e){
+  e.preventDefault();
+  const name=document.getElementById('name').value;
+  const email=document.getElementById('email').value;
+  const password=document.getElementById('password').value;
+
+  if(name && email && password){
+  const user={
+    name:name,
+    email:email,
+    password:password
+  }
+console.log('form data=',user);
+const response=await axios.post('/signup',user);
+
+const status=response.data.status;
+console.log('response data=',status);
+if(status==1){
+
+  alert('user created successfully');
+  document.getElementById('message').innerHTML=`<a href='/'>Login Now</a>`
+  document.getElementById('name').value='';
+  document.getElementById('email').value='';
+  document.getElementById('password').value='';
+}
+if(status==0){
+
+alert('User Already Exists! Login Now or try creating with different email id');
+document.getElementById('message').innerHTML=`<a href='/'> Login Now</a>`
+}
+  }
+ else
+    alert('please fill complete form.') 
+
+}
+//<a>User Already Registered. Login Here</a>
+</script>
+
+</body>
+</html>
