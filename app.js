@@ -31,7 +31,8 @@ user.hasMany(forgotpasswordrequests);
 forgotpasswordrequests.belongsTo(user);
 app.use(homeRoute);
 sequelize.sync().then(()=>{
-    console.log('Server Running........');
+    console.log('Server Running........ with updated status2');
+    console.log('Server Running........ with updated status2');
     console.log('app path=',path.join(__dirname, 'public'));
     app.listen(process.env.PORT || 3000);
 }).catch(error=>{
